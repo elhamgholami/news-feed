@@ -1,0 +1,48 @@
+.horizontalHeadlines
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-direction: row;
+}
+.verticalHeadlines {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .article {
+    display: flex;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .image {
+    width: 300px;
+    height: 200px;
+    object-fit: fill;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
