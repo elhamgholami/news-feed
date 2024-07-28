@@ -1,4 +1,4 @@
-import TopHeadlines from "@/components/TopHeadlines";
+import TopHeadlines from "@/app/TopHeadlines/components/TopHeadlines";
 
 const HomePage = () => {
   return (

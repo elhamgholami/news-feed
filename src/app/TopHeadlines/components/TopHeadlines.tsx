@@ -1,42 +1,33 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "../styles/TopHeadlines.module.scss";
-interface Article {
-  title: string;
-  description: string;
-  urlToImage: string;
-}
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../store";
+import { getTopHeadlines } from "../headLine";
+import styles from "./TopHeadlines.module.scss";
 
 const TopHeadlines = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const articles = useSelector((state: RootState) => state.headlines.articles);
+  const status = useSelector((state: RootState) => state.headlines.status);
+  const error = useSelector((state: RootState) => state.headlines.error);
+
+  useEffect(() => {
+    dispatch(getTopHeadlines({ country: "us", category: "science" }));
+  }, [dispatch]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>Error: {error}</div>;
+  }
+
   const articlesWithImages = articles.filter((article) => article.urlToImage);
   const articlesWithoutImages = articles.filter(
     (article) => !article.urlToImage
   );
-  useEffect(() => {
-    const fetchTopHeadlines = async () => {
-      try {
-        const response = await axios.get(
-          "https://newsapi.org/v2/top-headlines",
-          {
-            params: {
-              country: "us",
-              category: "science",
 
-              apiKey: "83ff284543f441809114d438ca5dc54b",
-            },
-          }
-        );
-        setArticles(response.data.articles);
-      } catch (error) {
-        console.error("Error fetching top headlines:", error);
-      }
-    };
-
-    fetchTopHeadlines();
-  }, []);
   return (
     <div className={styles.horizontalHeadlines}>
       <div className={styles.verticalHeadlines}>
@@ -67,4 +58,5 @@ const TopHeadlines = () => {
     </div>
   );
 };
+
 export default TopHeadlines;
