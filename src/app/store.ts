@@ -1,12 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import headlinesReducer from "../app/TopHeadlines/headLine";
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { API } from "../services/api";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    headlines: headlinesReducer,
+    [API.reducerPath]: API.reducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(API.middleware),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export default store;
+
+setupListeners(store.dispatch);
