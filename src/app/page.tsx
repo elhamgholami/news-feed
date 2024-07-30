@@ -1,12 +1,10 @@
 "use client";
 import TopHeadlines from "@/app/TopHeadlines/components/TopHeadlines";
-import { newsApi, useSearchArticlesQuery } from "@/app/services/NewsApi";
-import { Provider } from "react-redux";
-import { useState, useEffect } from "react";
-import Search from "./Search";
-import { store } from "./store";
+import { useSearchArticlesQuery } from "@/app/services/NewsApi";
+import { useState } from "react";
+import Search from "@/app/Search/index";
 
-function Home() {
+export default function App() {
   const [query, setQuery] = useState("");
   const { data, error, isLoading, isSuccess } = useSearchArticlesQuery({
     q: query,
@@ -39,13 +37,5 @@ function Home() {
         </section>
       </main>
     </>
-  );
-}
-
-export default function App() {
-  return (
-    <Provider store={store}>
-      <Home />
-    </Provider>
   );
 }

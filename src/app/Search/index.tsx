@@ -1,5 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { useSearchArticlesQuery } from "@/app/services/NewsApi";
+import React, { useState } from "react";
 
 interface Props {
   
