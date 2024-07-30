@@ -19,7 +19,6 @@ const Search = ({ setSearchQuery }: Props) => {
         <input
           type="text"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search for news..."
         />
         <button type="submit">Search</button>
