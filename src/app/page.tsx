@@ -1,9 +1,9 @@
 "use client";
 import TopHeadlines from "@/app/TopHeadlines/components/TopHeadlines";
-import { API, useSearchArticlesQuery } from "@/services/api";
+import { newsApi, useSearchArticlesQuery } from "@/app/services/NewsApi";
 import { Provider } from "react-redux";
 import { useState, useEffect } from "react";
-import Search from "./Search/Search";
+import Search from "./Search";
 import { store } from "./store";
 
 function Home() {
@@ -20,7 +20,7 @@ function Home() {
           <TopHeadlines />
         </section>
         <section className="search-section">
-          <Search setQ={setQuery} />
+          <Search setSearchQuery={setQuery} />
         </section>
 
         <section className="articles-list">

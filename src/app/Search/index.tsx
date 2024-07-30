@@ -1,17 +1,17 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { useSearchArticlesQuery } from "@/services/api";
+import { useSearchArticlesQuery } from "@/app/services/NewsApi";
 
 interface Props {
   
-  setQ:any;
+  setSearchQuery:any;
 
 }
 
-const Search = ({ setQ }: Props) => {
-  const [query, setQuery] = useState("");
+const Search = ({ setSearchQuery }: Props) => {
+  const [searchText, setSearchText] = useState("");
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-   setQ(query)
+    setSearchQuery(searchText)
   };
 
   return (
@@ -19,8 +19,8 @@ const Search = ({ setQ }: Props) => {
       <form onSubmit={handleSearch}>
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search for news..."
         />
         <button type="submit">Search</button>

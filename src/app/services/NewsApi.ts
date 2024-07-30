@@ -7,7 +7,7 @@ export interface Article {
   urlToImage: string;
 }
 
-export const API = createApi({
+export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://newsapi.org/v2",
@@ -31,4 +31,4 @@ export const API = createApi({
     }),
   }),
 });
-export const { useGetTopHeadlinesQuery, useSearchArticlesQuery } = API;
+export const { useGetTopHeadlinesQuery, useSearchArticlesQuery } = newsApi;
