@@ -6,6 +6,16 @@ export interface Article {
   description: string;
   urlToImage: string;
 }
+export interface SearchParams {
+  domains?: string;
+  q?: string;
+  from?: string;
+  to?: string;
+  searchIn?: string;
+  language?: string;
+  sources?: string;
+  
+}
 
 export const newsApi = createApi({
   reducerPath: "newsApi",
@@ -22,13 +32,29 @@ export const newsApi = createApi({
         params: { country, category },
       }),
     }),
-    searchArticles: builder.query<{ articles: Article[] }, { q: string }>({
-      query: ({ q }) => {
+    searchArticles: builder.query<{ articles: Article[] }, {searchParams: SearchParams}>({
+      query: ({searchParams}) => {
+        const params = new URLSearchParams();
+        Object.entries(searchParams).forEach(([key, value]) => {
+          if (value) {
+            params.append(key, value);
+          }
+        });
+
+        console.log("this is param", params.toString());
+        
         return {
-          url: `/everything?q=${q}&apiKey=${APIKEY}`,
+          url: `/everything?${params.toString()}&apiKey=${APIKEY}`,
+        };
+      },
+    }),
+    getSources: builder.query<{ sources: { id: string; name: string }[] }, void>({
+      query: () => {
+        return {
+          url: `/top-headlines/sources?apiKey=${APIKEY}`,
         };
       },
     }),
   }),
 });
-export const { useGetTopHeadlinesQuery, useSearchArticlesQuery } = newsApi;
+export const { useGetTopHeadlinesQuery, useSearchArticlesQuery, useGetSourcesQuery } = newsApi;
