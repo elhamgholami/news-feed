@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import "@/app/Search/index.scss";
-import z, { object } from "zod";
+import z from "zod";
 import MultiSelect from "./multiSelect";
 import { SearchParams, useGetSourcesQuery } from "../services/NewsApi";
 
@@ -26,7 +26,16 @@ const languageOptions = [
   { value: "ud", label: "Urdu" },
   { value: "zh", label: "Chinese" },
 ];
-
+const searchInOptions = [
+  { value: "title", label: "title" },
+  { value: "description", label: "description" },
+  { value: "content", label: "content" },
+];
+const domainOptions = [
+  { value: "bbc.co.uk", label: "bbc" },
+  { value: "techcrunch.com", label: "techRunch" },
+  { value: "engadget.com", label: "engadget" },
+];
 const searchSchema = z.object({
   searchText: z.string().optional(),
   languages: z
@@ -46,7 +55,6 @@ const searchSchema = z.object({
 type searchSchemaType = z.infer<typeof searchSchema>;
 
 const Search = ({ setSearchQuery }: Props) => {
-  const [searchText, setSearchText] = useState("");
   const [advanceSearchMode, setAdvanceSearchMode] = useState(false);
   const { data } = useGetSourcesQuery();
   const [sourcesOptions, setSourcesOptions] = useState<
@@ -87,14 +95,15 @@ const Search = ({ setSearchQuery }: Props) => {
       searchParams.sources = data.sources
         .map((source) => source.value)
         .join(",");
-    // if (data.domains)
-    //   searchParams.domains = data.domains
-    //     .map((domain) => domain.value)
-    //     .join(","); //domain bayad az back gerefte beshe
+    if (data.domains)
+      searchParams.domains = data.domains
+        .map((domain) => domain.value)
+        .join(",");
     if (
       !data.searchText &&
       (!data.sources || data.sources.length === 0) &&
-      !searchParams.q
+      !searchParams.q &&
+      !searchParams.domains
     ) {
       alert(
         "Please specify at least one search parameter: quert, sources, or domains."
@@ -111,10 +120,8 @@ const Search = ({ setSearchQuery }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            value={searchText}
             placeholder="Search for news..."
             {...register("searchText")}
-            onChange={(e) => setSearchText(e.target.value)}
             disabled={isSubmitting}
           />
           <button type="submit">Search</button>
@@ -127,11 +134,10 @@ const Search = ({ setSearchQuery }: Props) => {
           <div className="advanced-search">
             <div className="form-group">
               <label htmlFor="domains">Domains</label>
-              <input
-                type="text"
-                id="domains"
-                disabled
-                {...register("domain")}
+              <MultiSelect
+                control={control}
+                options={domainOptions}
+                {...register("domains")}
               />
             </div>
             <div className="form-group">
@@ -160,13 +166,18 @@ const Search = ({ setSearchQuery }: Props) => {
             </div>
             <div className="form-group">
               <label htmlFor="searchIn">Search In</label>
-              <select id="searchIn" {...register("searchIn")}>
-                <option value="title">Title</option>
-                <option value="description">Description</option>
-                <option value="content">Content</option>
-              </select>
+              <MultiSelect
+                control={control}
+                options={searchInOptions}
+                {...register("searchIn")}
+              />
             </div>
-            <button type="submit">Search</button>
+            <button
+              type="submit"
+              onClick={() => setAdvanceSearchMode(!advanceSearchMode)}
+            >
+              Search
+            </button>
           </div>
         )}
       </div>

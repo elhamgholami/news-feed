@@ -6,12 +6,10 @@ import Search from "@/app/Search/index";
 import React from "react";
 import Select from "react-select";
 
-
-
 export default function App() {
   const [query, setQuery] = useState<SearchParams>({});
   const { data, error, isLoading } = useSearchArticlesQuery({
-    searchParams: query
+    searchParams: query,
   });
 
   return (
