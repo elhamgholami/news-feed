@@ -1,5 +1,5 @@
 "use client";
-import styles from "./TopHeadlines.module.scss";
+import "@/app/TopHeadlines/components/index.scss";
 import { useGetTopHeadlinesQuery } from "@/app/services/NewsApi";
 
 function TopHeadlines() {
@@ -22,28 +22,28 @@ function TopHeadlines() {
       (article) => !article.urlToImage
     );
     return (
-      <div className={styles.horizontalHeadlines}>
-        <div className={styles.verticalHeadlines}>
+      <div className="horizontalHeadlines">
+        <div className="verticalHeadlines">
           {articlesWithImages.map((article, index) => (
-            <div key={index} className={styles.article}>
-              <h2 className={styles.title}>{article.title}</h2>
-              <div className={styles.content}>
+            <div key={index} className="article">
+              <h2 className="title">{article.title}</h2>
+              <div className="content">
                 <img
                   src={article.urlToImage}
                   alt={article.title}
-                  className={styles.image}
+                  className="image"
                 />
-                <p className={styles.description}>{article.description}</p>
+                <p className="description">{article.description}</p>
               </div>
             </div>
           ))}
         </div>
-        <div className={styles.verticalHeadlines}>
+        <div className="verticalHeadlines">
           {articlesWithoutImages.slice(0, 10).map((article, index) => (
-            <div key={index} className={styles.article}>
-              <div className={styles.content}>
-                <h2 className={styles.title}>{article.title}</h2>
-                <p className={styles.description}>{article.description}</p>
+            <div key={index} className="article">
+              <div className="content">
+                <h2 className="title">{article.title}</h2>
+                <p className="description">{article.description}</p>
               </div>
             </div>
           ))}

@@ -1,10 +1,9 @@
 "use client";
-import TopHeadlines from "@/app/TopHeadlines/components/TopHeadlines";
+import TopHeadlines from "@/app/TopHeadlines/components";
 import { SearchParams, useSearchArticlesQuery } from "@/app/services/NewsApi";
 import { useState } from "react";
 import Search from "@/app/Search/index";
 import React from "react";
-import Select from "react-select";
 
 export default function App() {
   const [query, setQuery] = useState<SearchParams>({});

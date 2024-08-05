@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import "@/app/Search/index.scss";
+import "@/app/Search/styles.scss";
 import z from "zod";
 import { SearchParams } from "../services/NewsApi";
 import AdvancedSearchModal from "./advancedSearchModal";
@@ -83,7 +83,9 @@ const Search = ({ setSearchQuery }: Props) => {
             {...register("searchText")}
             disabled={isSubmitting}
           />
-          <button type="submit">Search</button>
+          <button type="submit" className="simple-button">
+            Search
+          </button>
           {errors.searchText && !isSubmitting && <p>{errors.root?.message}</p>}
         </form>
         <button onClick={() => setAdvanceSearchMode(!advanceSearchMode)}>

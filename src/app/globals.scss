@@ -1,6 +1,11 @@
+$font-stack: Helvetica, sans-serif;
+$theme-white: rgb(255, 231, 231);
+$theme-red: #4a1414;
+$background-color: #f0f2f5;
+
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f0f2f5;
+  font-family: 100% $font-stack;
+  background-color: $background-color;
   margin: 0;
   padding: 0;
 }
@@ -61,4 +66,30 @@ h1 {
 }
 .no-scroll {
   overflow: hidden;
+}
+
+
+.simple-button
+{
+  background-color: white;
+  border: 0.1rem solid $theme-red;
+  border-radius: 1rem;
+  box-shadow: $theme-red 0.1rem 0.1rem 0px 0px;
+  cursor: pointer;
+  display: inline-block;
+  color: $theme-red;
+  font-weight: 10rem;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  line-height: 2rem;
+  user-select: none;
+  touch-action: manipulation;
+  &:hover {
+    background-color: #eae1e1;
+  }
+  &:active {
+    box-shadow:$theme-red 0.15rem 0.15rem 0 0;
+    transform: translate(0.15rem, 0.15rem);
+  }
 }

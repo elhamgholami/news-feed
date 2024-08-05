@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import MultiSelect from "./multiSelect";
 import { useEffect, useState } from "react";
 import { useGetSourcesQuery } from "../services/NewsApi";
-import "@/app/Search/index.scss"
+import "@/app/Search/styles.scss";
 
 interface AdvancedSearchModalProps {
   isOpen: boolean;
@@ -73,7 +73,7 @@ const AdvancedSearchModal = ({
     };
   }, [data, isOpen]);
   return (
-    <Modal className="modal" isOpen={isOpen} onRequestClose={onRequestClose}>
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
       <div className="advanced-search">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
