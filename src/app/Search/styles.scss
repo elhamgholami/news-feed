@@ -43,10 +43,10 @@
     width: 100%;
     max-width: 600px;
     form {
+      justify-items: center;
       .form-group {
         margin-bottom: 15px;
         width: 100%;
-
         label {
           display: block;
           margin-bottom: 5px;
@@ -77,15 +77,15 @@
     content: "";
     background: linear-gradient(
         45deg,
-        rgb(255, 0, 0),
-        rgb(255, 115, 0),
-        rgb(255, 251, 0),
-        rgb(72, 255, 0),
-        rgb(0, 255, 213),
-        rgb(0, 43, 255),
-        rgb(122, 0, 255),
-        rgb(255, 0, 200),
-        rgb(255, 0, 0)
+        rgb(118, 0, 0),
+        rgb(153, 69, 1),
+        rgb(153, 125, 1),
+        rgb(30, 106, 0),
+        rgb(0, 147, 122),
+        rgb(1, 20, 119),
+        rgb(50, 0, 104),
+        rgb(119, 0, 93),
+        rgb(118, 0, 0),
       )
       0% 0% / 400%;
     position: absolute;

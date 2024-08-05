@@ -75,6 +75,7 @@ const AdvancedSearchModal = ({
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
       <div className="advanced-search">
+      <button onClick={onRequestClose}>Close</button>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="domains">Domains</label>
@@ -116,11 +117,10 @@ const AdvancedSearchModal = ({
               {...register("searchIn")}
             />
           </div>
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" disabled={isSubmitting} className="simple-button">
             Search
           </button>
         </form>
-        <button onClick={onRequestClose}>Close</button>
       </div>
     </Modal>
   );

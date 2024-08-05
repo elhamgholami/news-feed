@@ -68,9 +68,7 @@ h1 {
   overflow: hidden;
 }
 
-
-.simple-button
-{
+.simple-button {
   background-color: white;
   border: 0.1rem solid $theme-red;
   border-radius: 1rem;
@@ -89,7 +87,7 @@ h1 {
     background-color: #eae1e1;
   }
   &:active {
-    box-shadow:$theme-red 0.15rem 0.15rem 0 0;
+    box-shadow: $theme-red 0.15rem 0.15rem 0 0;
     transform: translate(0.15rem, 0.15rem);
   }
 }
