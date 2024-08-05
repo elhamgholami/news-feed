@@ -88,7 +88,10 @@ const Search = ({ setSearchQuery }: Props) => {
           </button>
           {errors.searchText && !isSubmitting && <p>{errors.root?.message}</p>}
         </form>
-        <button onClick={() => setAdvanceSearchMode(!advanceSearchMode)}>
+        <button
+          onClick={() => setAdvanceSearchMode(!advanceSearchMode)}
+          className="advanced-search-button"
+        >
           Advanced Search
         </button>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import TopHeadlines from "@/app/TopHeadlines/components";
+import TopHeadlines from "@/app/TopHeadlines/components/index";
 import { SearchParams, useSearchArticlesQuery } from "@/app/services/NewsApi";
 import { useState } from "react";
 import Search from "@/app/Search/index";
