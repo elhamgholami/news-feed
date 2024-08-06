@@ -1,9 +1,12 @@
 "use client";
-import TopHeadlines from "@/app/TopHeadlines/components/index";
-import { SearchParams, useSearchArticlesQuery } from "@/app/services/NewsApi";
+// importing needed components from react
 import { useState } from "react";
+// importing TopHeadlines and Search component
+import TopHeadlines from "@/app/TopHeadlines/components/index";
 import Search from "@/app/Search/index";
-import React from "react";
+// importing needed api service and type
+import { SearchParams, useSearchArticlesQuery } from "@/app/services/NewsApi";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [query, setQuery] = useState<SearchParams>({});
@@ -14,6 +17,7 @@ export default function App() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <ToastContainer position="top-right" />
         <section className="search-container">
           <h1>Top Headlines</h1>
           <TopHeadlines />

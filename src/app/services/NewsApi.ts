@@ -39,10 +39,7 @@ export const newsApi = createApi({
           if (value) {
             params.append(key, value);
           }
-        });
-
-        console.log("this is param", params.toString());
-        
+        });        
         return {
           url: `/everything?${params.toString()}&apiKey=${APIKEY}`,
         };

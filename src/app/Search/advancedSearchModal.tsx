@@ -1,8 +1,12 @@
+// importing needed components from react
 import { UseFormRegister, Control } from "react-hook-form";
+import { useEffect } from "react";
 import Modal from "react-modal";
-import MultiSelect from "./multiSelect";
-import { useEffect, useState } from "react";
-import { useGetSourcesQuery } from "../services/NewsApi";
+// importing multiselect component
+import MultiSelect from "@/app/Search/multiSelect";
+// importing needed api service
+import { useGetSourcesQuery } from "@/app/services/NewsApi";
+//importing styles
 import "@/app/Search/styles.scss";
 
 interface AdvancedSearchModalProps {
@@ -30,16 +34,19 @@ const languageOptions = [
   { value: "ud", label: "Urdu" },
   { value: "zh", label: "Chinese" },
 ];
+
 const searchInOptions = [
   { value: "title", label: "title" },
   { value: "description", label: "description" },
   { value: "content", label: "content" },
 ];
+
 const domainOptions = [
   { value: "bbc.co.uk", label: "bbc" },
   { value: "techcrunch.com", label: "techRunch" },
   { value: "engadget.com", label: "engadget" },
 ];
+
 const AdvancedSearchModal = ({
   isOpen,
   onRequestClose,
@@ -48,20 +55,17 @@ const AdvancedSearchModal = ({
   handleSubmit,
   isSubmitting,
 }: AdvancedSearchModalProps) => {
-  const [sourcesOptions, setSourcesOptions] = useState<
-    { value: string; label: string }[]
-  >([]);
+  // Getting sources
   const { data } = useGetSourcesQuery();
-
+  let sourcesOptions = [{ value: "loading", label: "not loaded yet" }];
+  if (data) {
+    sourcesOptions = data.sources.map((source: any) => ({
+      value: source.id,
+      label: source.name,
+    }));
+  }
+  //Adding no scrol while modal is open
   useEffect(() => {
-    if (data) {
-      setSourcesOptions(
-        data.sources.map((source: any) => ({
-          value: source.id,
-          label: source.name,
-        }))
-      );
-    }
     if (isOpen) {
       document.body.classList.add("no-scroll");
     } else {
@@ -72,10 +76,11 @@ const AdvancedSearchModal = ({
       document.body.classList.remove("no-scroll");
     };
   }, [data, isOpen]);
+
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
       <div className="advanced-search">
-      <button onClick={onRequestClose}>Close</button>
+        <button onClick={onRequestClose}>Close</button>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="domains">Domains</label>
@@ -117,7 +122,11 @@ const AdvancedSearchModal = ({
               {...register("searchIn")}
             />
           </div>
-          <button type="submit" disabled={isSubmitting} className="simple-button">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="simple-button"
+          >
             Search
           </button>
         </form>

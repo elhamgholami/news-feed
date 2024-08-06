@@ -1,4 +1,4 @@
-@use "../globals" as v;
+@use "@/app/globals" as v;
 
 .simple-form {
   margin-bottom: 2rem;
@@ -85,7 +85,7 @@
         rgb(1, 20, 119),
         rgb(50, 0, 104),
         rgb(119, 0, 93),
-        rgb(118, 0, 0),
+        rgb(118, 0, 0)
       )
       0% 0% / 400%;
     position: absolute;

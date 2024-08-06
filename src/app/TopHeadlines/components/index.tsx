@@ -1,6 +1,8 @@
 "use client";
-import "@/app/TopHeadlines/components/index.scss";
+// importing needed api service
 import { useGetTopHeadlinesQuery } from "@/app/services/NewsApi";
+//importing styles
+import "@/app/TopHeadlines/components/index.scss";
 
 function TopHeadlines() {
   const { data, error, isLoading, isSuccess } = useGetTopHeadlinesQuery({

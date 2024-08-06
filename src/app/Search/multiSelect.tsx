@@ -1,6 +1,7 @@
+// importing needed components from react
 import React from "react";
 import { Controller, Control, FieldValues } from "react-hook-form";
-import Select, { MultiValue } from "react-select";
+import Select from "react-select";
 
 interface ControlInput {
   control: Control<FieldValues>;

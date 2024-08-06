@@ -1,15 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+// importing needed components from react
 import { SubmitHandler, useForm } from "react-hook-form";
-import "@/app/Search/styles.scss";
+import { useState } from "react";
+// importing Zod
+import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { SearchParams } from "../services/NewsApi";
+// importing Modal component
 import AdvancedSearchModal from "./advancedSearchModal";
+// importing needed type
+import { SearchParams } from "@/app/services/NewsApi";
+import "@/app/Search/styles.scss";
+import ErrorAlert from "./ErrorAlert";
+import { toast } from "react-toastify";
 
 interface Props {
   setSearchQuery: (query: SearchParams) => void;
 }
-
+// adding zod
 const searchSchema = z.object({
   searchText: z.string().optional(),
   languages: z
@@ -26,7 +32,18 @@ const searchSchema = z.object({
     .optional(),
 });
 
+//adding Z needed type
 type searchSchemaType = z.infer<typeof searchSchema>;
+
+//error toast
+const showErrorToast = () => {
+  toast.error("Hello World", {
+    data: {
+      title: "Error toast",
+      text: "This is an error message",
+    },
+  });
+};
 
 const Search = ({ setSearchQuery }: Props) => {
   const [advanceSearchMode, setAdvanceSearchMode] = useState(false);
@@ -64,13 +81,12 @@ const Search = ({ setSearchQuery }: Props) => {
       !searchParams.q &&
       !searchParams.domains
     ) {
-      alert(
-        "Please specify at least one search parameter: quert, sources, or domains."
+      ErrorAlert(
+        "Please specify at least one search parameter: query, sources, or domains."
       );
       return;
     }
     setSearchQuery(searchParams);
-    console.log("this is query", searchParams);
   };
 
   return (
