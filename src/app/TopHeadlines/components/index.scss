@@ -1,0 +1,47 @@
+.horizontalHeadlines {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  flex-direction: row;
+}
+.verticalHeadlines {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article {
+  display: flex;
+  border: 0.01rem solid #ddd;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0.1rem 0.5rem rgba(169, 169, 169, 0.1);
+  overflow: hidden;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  max-width: 50rem;
+}
+
+.image {
+  width: 20rem;
+  height: 15rem;
+  object-fit: fill;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  border-radius: 0.1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 1em;
+  color: #333;
+}
+
+.description {
+  font-size: 0.8em;
+  color: #666;
+}
