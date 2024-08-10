@@ -43,11 +43,11 @@ export default function App() {
             <InfiniteLoader
               isItemLoaded={isItemLoaded}
               itemCount={data.totalResults}
-              loadMoreItems={loadMoreItems}
+              loadMoreItems={() => {}}
             >
               {({ onItemsRendered, ref }) => (
                 <List
-                  height={600} 
+                  height={600}
                   itemCount={data.articles.length}
                   itemSize={150}
                   onItemsRendered={onItemsRendered}
@@ -66,18 +66,16 @@ export default function App() {
                     );
                   }}
                 </List>
-                
               )}
-              
             </InfiniteLoader>
           )}
-           <button
-                  onClick={loadMoreItems}
-                  disabled={isLoading}
-                  className="simple-button"
-                >
-                  {isLoading ? "Loading..." : "Load More"}
-                </button>
+          <button
+            onClick={loadMoreItems}
+            disabled={isLoading}
+            className="simple-button"
+          >
+            {isLoading ? "Loading..." : "Load More"}
+          </button>
         </section>
       </main>
     </>
