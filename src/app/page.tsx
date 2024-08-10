@@ -47,9 +47,9 @@ export default function App() {
             >
               {({ onItemsRendered, ref }) => (
                 <List
-                  height={600} // Adjust as needed
+                  height={600} 
                   itemCount={data.articles.length}
-                  itemSize={150} // Adjust as needed
+                  itemSize={150}
                   onItemsRendered={onItemsRendered}
                   ref={ref}
                   width={"100%"}
@@ -66,9 +66,18 @@ export default function App() {
                     );
                   }}
                 </List>
+                
               )}
+              
             </InfiniteLoader>
           )}
+           <button
+                  onClick={loadMoreItems}
+                  disabled={isLoading}
+                  className="simple-button"
+                >
+                  {isLoading ? "Loading..." : "Load More"}
+                </button>
         </section>
       </main>
     </>
