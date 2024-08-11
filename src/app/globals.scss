@@ -91,3 +91,16 @@ h1 {
     transform: translate(0.15rem, 0.15rem);
   }
 }
+
+.input-component {
+  appearance: none;
+  border: none;
+  outline: none;
+  border-bottom: 0.1em solid $theme-red;
+  background: rgba($theme-white, 0.2);
+  border-radius: 0.5em 0.5em 0.2em 0.2em;
+  padding: 0.5em;
+  color: $theme-red;
+  margin: 0.5em;
+  font-size: 1.5rem;
+}

@@ -1,13 +1,14 @@
 // importing needed components from react
-import { UseFormRegister, Control } from "react-hook-form";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Modal from "react-modal";
+import { UseFormRegister, Control } from "react-hook-form";
 // importing multiselect component
 import MultiSelect from "@/app/Search/multiSelect";
 // importing needed api service
 import { useGetSourcesQuery } from "@/app/services/NewsApi";
 //importing styles
 import "@/app/Search/styles.scss";
+import SubmitButton from "@/app/buttons";
 
 interface AdvancedSearchModalProps {
   isOpen: boolean;
@@ -36,15 +37,15 @@ const languageOptions = [
 ];
 
 const searchInOptions = [
-  { value: "title", label: "title" },
-  { value: "description", label: "description" },
-  { value: "content", label: "content" },
+  { value: "title", label: "Title" },
+  { value: "description", label: "Description" },
+  { value: "content", label: "Content" },
 ];
 
 const domainOptions = [
-  { value: "bbc.co.uk", label: "bbc" },
-  { value: "techcrunch.com", label: "techRunch" },
-  { value: "engadget.com", label: "engadget" },
+  { value: "bbc.co.uk", label: "BBC" },
+  { value: "techcrunch.com", label: "TechCrunch" },
+  { value: "engadget.com", label: "Engadget" },
 ];
 
 const AdvancedSearchModal = ({
@@ -55,16 +56,15 @@ const AdvancedSearchModal = ({
   handleSubmit,
   isSubmitting,
 }: AdvancedSearchModalProps) => {
-  // Getting sources
   const { data } = useGetSourcesQuery();
-  let sourcesOptions = [{ value: "loading", label: "not loaded yet" }];
+  let sourcesOptions = [{ value: "loading", label: "Not loaded yet" }];
   if (data) {
     sourcesOptions = data.sources.map((source: any) => ({
       value: source.id,
       label: source.name,
     }));
   }
-  //Adding no scrol while modal is open
+
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("no-scroll");
@@ -75,13 +75,31 @@ const AdvancedSearchModal = ({
     return () => {
       document.body.classList.remove("no-scroll");
     };
-  }, [data, isOpen]);
+  }, [isOpen]);
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal">
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      className="modal"
+      overlayClassName="modal-overlay"
+    >
       <div className="advanced-search">
-        <button onClick={onRequestClose}>Close</button>
-        <form onSubmit={handleSubmit}>
+        <button onClick={onRequestClose} className="close-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="50"
+            height="50"
+          >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+              fill="currentColor"
+              d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+            />
+          </svg>
+        </button>
+        <form onSubmit={handleSubmit} className="simple-form">
           <div className="form-group">
             <label htmlFor="domains">Domains</label>
             <MultiSelect
@@ -122,16 +140,11 @@ const AdvancedSearchModal = ({
               {...register("searchIn")}
             />
           </div>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="simple-button"
-          >
-            Search
-          </button>
+          <SubmitButton disabled={isSubmitting}>Search</SubmitButton>
         </form>
       </div>
     </Modal>
   );
 };
+
 export default AdvancedSearchModal;

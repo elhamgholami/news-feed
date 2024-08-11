@@ -10,7 +10,8 @@ import AdvancedSearchModal from "./advancedSearchModal";
 import { SearchParams } from "@/app/services/NewsApi";
 import "@/app/Search/styles.scss";
 import ErrorAlert from "./ErrorAlert";
-import { toast } from "react-toastify";
+import SubmitButton from "../buttons";
+import InputComponent from "../../../inputs";
 
 interface Props {
   setSearchQuery: (query: SearchParams) => void;
@@ -34,16 +35,6 @@ const searchSchema = z.object({
 
 //adding Z needed type
 type searchSchemaType = z.infer<typeof searchSchema>;
-
-//error toast
-const showErrorToast = () => {
-  toast.error("Hello World", {
-    data: {
-      title: "Error toast",
-      text: "This is an error message",
-    },
-  });
-};
 
 const Search = ({ setSearchQuery }: Props) => {
   const [advanceSearchMode, setAdvanceSearchMode] = useState(false);
@@ -93,23 +84,23 @@ const Search = ({ setSearchQuery }: Props) => {
     <div>
       <div className="simple-form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
+          <InputComponent
             type="text"
             placeholder="Search for news..."
-            {...register("searchText")}
+            register={register}
+            registerValue="searchText"
             disabled={isSubmitting}
           />
-          <button type="submit" className="simple-button">
-            Search
-          </button>
+          <SubmitButton>Search</SubmitButton>
           {errors.searchText && !isSubmitting && <p>{errors.root?.message}</p>}
-        </form>
         <button
           onClick={() => setAdvanceSearchMode(!advanceSearchMode)}
           className="advanced-search-button"
+          type="button"
         >
           Advanced Search
         </button>
+        </form>
       </div>
       <AdvancedSearchModal
         isOpen={advanceSearchMode}

@@ -10,6 +10,7 @@ import Search from "@/app/Search/index";
 // importing needed api service and type
 import { SearchParams, useSearchArticlesQuery } from "@/app/services/NewsApi";
 import { ToastContainer } from "react-toastify";
+import SubmitButton from "./buttons";
 
 export default function App() {
   const [query, setQuery] = useState<SearchParams>({});
@@ -56,26 +57,20 @@ export default function App() {
                 >
                   {({ index, style }) => {
                     const article = data.articles[index];
-                    return article ? (
+                    return (
                       <div key={index} style={style} className="news-item">
                         <h2>{article.title}</h2>
                         <p>{article.description}</p>
                       </div>
-                    ) : (
-                      <div style={style}>Loading...</div>
                     );
                   }}
                 </List>
               )}
             </InfiniteLoader>
           )}
-          <button
-            onClick={loadMoreItems}
-            disabled={isLoading}
-            className="simple-button"
-          >
+          <SubmitButton onClick={loadMoreItems} disabled={isLoading}>
             {isLoading ? "Loading..." : "Load More"}
-          </button>
+          </SubmitButton>
         </section>
       </main>
     </>
