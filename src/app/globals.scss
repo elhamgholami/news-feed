@@ -21,6 +21,18 @@ main {
   border-radius: 0.5rem;
   max-width: 60rem;
   margin: 2rem auto;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin: 1rem;
+    max-width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+    margin: 1rem;
+    max-width: 100%;
+  }
 }
 
 h1 {
@@ -28,6 +40,16 @@ h1 {
   color: #333333;
   margin-bottom: 1.5rem;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
 }
 
 .articles-list {
@@ -35,37 +57,50 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+.search-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #ffffff;
+}
+.news-item {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 50rem;
+  justify-content: center;
+  overflow: "hidden";
+  padding: 0.5rem;
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.1rem;
+    color: #333333;
 
-  .article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
 
-    .news-item {
-      background-color: #ffffff;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 1rem;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 50rem;
-
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.2rem;
-        color: #333333;
-      }
+    @media (max-width: 480px) {
+      font-size: 1rem;
     }
   }
 
   p {
     font-size: 1rem;
     color: #6c6b6b;
+
+    @media (max-width: 768px) {
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.5rem;
+    }
   }
-}
-.no-scroll {
-  overflow: hidden;
 }
 
 .simple-button {
@@ -83,12 +118,24 @@ h1 {
   line-height: 2rem;
   user-select: none;
   touch-action: manipulation;
+
   &:hover {
     background-color: #eae1e1;
   }
+
   &:active {
     box-shadow: $theme-red 0.15rem 0.15rem 0 0;
     transform: translate(0.15rem, 0.15rem);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 0.75rem;
+    line-height: 1.75rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 0.5rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -103,4 +150,18 @@ h1 {
   color: $theme-red;
   margin: 0.5em;
   font-size: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    padding: 0.4em;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0.3em;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
 }

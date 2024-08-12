@@ -46,6 +46,7 @@ const Search = ({ setSearchQuery }: Props) => {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(searchSchema),
+    mode: "onSubmit",
   });
 
   const onSubmit: SubmitHandler<searchSchemaType> = (data) => {
@@ -56,16 +57,16 @@ const Search = ({ setSearchQuery }: Props) => {
     if (data.to) searchParams.to = data.to;
     if (data.languages)
       searchParams.language = data.languages
-        .map((lang) => lang.value)
-        .join(",");
+    .map((lang) => lang.value)
+    .join(",");
     if (data.sources)
       searchParams.sources = data.sources
-        .map((source) => source.value)
-        .join(",");
+    .map((source) => source.value)
+    .join(",");
     if (data.domains)
       searchParams.domains = data.domains
-        .map((domain) => domain.value)
-        .join(",");
+    .map((domain) => domain.value)
+    .join(",");
     if (
       !data.searchText &&
       (!data.sources || data.sources.length === 0) &&
@@ -93,23 +94,25 @@ const Search = ({ setSearchQuery }: Props) => {
           />
           <SubmitButton>Search</SubmitButton>
           {errors.searchText && !isSubmitting && <p>{errors.root?.message}</p>}
-        <button
-          onClick={() => setAdvanceSearchMode(!advanceSearchMode)}
-          className="advanced-search-button"
-          type="button"
-        >
-          Advanced Search
-        </button>
+          <button
+            onClick={() => setAdvanceSearchMode(!advanceSearchMode)}
+            className="advanced-search-button"
+            type="button"
+          >
+            Advanced Search
+          </button>
         </form>
       </div>
-      <AdvancedSearchModal
-        isOpen={advanceSearchMode}
-        onRequestClose={() => setAdvanceSearchMode(false)}
-        register={register}
-        control={control}
-        isSubmitting={isSubmitting}
-        handleSubmit={handleSubmit(onSubmit)}
-      />
+      {advanceSearchMode && (
+        <AdvancedSearchModal
+          isOpen={advanceSearchMode}
+          onRequestClose={() => setAdvanceSearchMode(false)}
+          register={register}
+          control={control}
+          isSubmitting={isSubmitting}
+          handleSubmit={handleSubmit(onSubmit)}
+        />
+      )}
     </div>
   );
 };

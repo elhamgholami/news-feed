@@ -34,6 +34,7 @@ export const newsApi = createApi({
     searchArticles: builder.query<{ articles: Article[], totalResults: number }, {searchParams: SearchParams, page: number}>({
       query: ({searchParams, page = 1}) => {
         const params = new URLSearchParams();
+        
         params.append("page", page.toString());
         Object.entries(searchParams).forEach(([key, value]) => {
           if (value) {

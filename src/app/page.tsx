@@ -15,15 +15,27 @@ import SubmitButton from "./buttons";
 export default function App() {
   const [query, setQuery] = useState<SearchParams>({});
   const [page, setPage] = useState(1);
-  const { data, error, isLoading } = useSearchArticlesQuery({
-    searchParams: query,
-    page,
-  });
+  const isQueryEmpty = (query: SearchParams) => {
+    return (
+      !query ||
+      Object.keys(query).length === 0 ||
+      Object.values(query).every((value) => !value || value.length === 0)
+    );
+  };
+  const { data, error, isLoading } = useSearchArticlesQuery(
+    { searchParams: query, page },
+    { skip: isQueryEmpty(query) }
+  );
 
   const loadMoreItems = () => {
     setPage((prevPage) => prevPage + 1);
   };
   const isItemLoaded = (index: number) => !!data?.articles[index];
+
+  const articles = data?.articles.filter(
+    (article) => article.title != "[Removed]"
+  );
+  const totalResults = data?.totalResults ? data.totalResults : 0;
 
   return (
     <>
@@ -40,23 +52,24 @@ export default function App() {
         <section className="articles-list">
           {isLoading && <p>Loading...</p>}
           {error && <p>Error fetching articles.</p>}
-          {data && data.articles.length !== 0 && (
+          {articles && articles.length !== 0 && (
             <InfiniteLoader
               isItemLoaded={isItemLoaded}
-              itemCount={data.totalResults}
+              itemCount={totalResults}
               loadMoreItems={() => {}}
             >
               {({ onItemsRendered, ref }) => (
                 <List
                   height={600}
-                  itemCount={data.articles.length}
+                  itemCount={articles.length}
                   itemSize={150}
                   onItemsRendered={onItemsRendered}
                   ref={ref}
                   width={"100%"}
+                  className="search-result"
                 >
                   {({ index, style }) => {
-                    const article = data.articles[index];
+                    const article = articles[index];
                     return (
                       <div key={index} style={style} className="news-item">
                         <h2>{article.title}</h2>
