@@ -14,7 +14,6 @@ export interface SearchParams {
   searchIn?: string;
   language?: string;
   sources?: string;
-  
 }
 
 export const newsApi = createApi({
@@ -32,14 +31,16 @@ export const newsApi = createApi({
         params: { country, category },
       }),
     }),
-    searchArticles: builder.query<{ articles: Article[] }, {searchParams: SearchParams}>({
-      query: ({searchParams}) => {
+    searchArticles: builder.query<{ articles: Article[], totalResults: number }, {searchParams: SearchParams, page: number}>({
+      query: ({searchParams, page = 1}) => {
         const params = new URLSearchParams();
+        
+        params.append("page", page.toString());
         Object.entries(searchParams).forEach(([key, value]) => {
           if (value) {
             params.append(key, value);
           }
-        });        
+        });
         return {
           url: `/everything?${params.toString()}&apiKey=${APIKEY}`,
         };

@@ -7,7 +7,7 @@ import "@/app/TopHeadlines/components/index.scss";
 function TopHeadlines() {
   const { data, error, isLoading, isSuccess } = useGetTopHeadlinesQuery({
     country: "us",
-    category: "science",
+    category: "entertainment",
   });
 
   if (isLoading) {
